@@ -1,0 +1,217 @@
+/* src/HomePage.css */
+/* Home Page */
+
+.__home{
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+/* Reset some default browser styles */
+body, h1, h2, p {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background: #f4f4f4;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Header Styling */
+.header {
+  background: rgba(57, 59, 60, 0.6); /* Semi-transparent background */
+  color: #fff;
+  padding: 10px 20px;
+  text-align: center;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: background 0.3s ease, padding 0.3s ease; /* Smooth transition for background and padding */
+  box-sizing: border-box; /* Ensure padding doesn't affect the width */
+}
+
+.header h1 {
+  margin: 0;
+  overflow: hidden; /* Ensure no overflow for header title */
+}
+
+.header nav ul {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+  margin: 0;
+  padding: 0;
+}
+
+.header nav ul li {
+  display: inline;
+}
+
+.header nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  padding: 5px 10px;
+}
+
+.header nav ul li a:hover {
+  text-decoration: underline;
+}
+
+.header:hover {
+  background: rgba(36, 36, 36, 0.9); /* Darken background on hover */
+}
+
+/* Banner Styling */
+.banner {
+  margin-top: 60px; /* Space for fixed header */
+  width: 100%; /* Ensure banner width is 100% of viewport */
+  overflow: hidden; /* Prevent horizontal scrolling */
+}
+
+.banner img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Hero Section Styling */
+.hero {
+  /* TODO: change this Image-URl  */
+  background: url('../../public/images/banner/home/our.jpg') no-repeat center center;
+  background-size: cover;
+  padding: 60px 20px; /* Adjust padding as needed */
+  color: #fff; /* Ensure text is readable over the background */
+  text-align: center;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.hero h2 {
+  margin-bottom: 10px;
+}
+
+.hero button {
+  padding: 10px 20px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.hero button:hover {
+  background: #565a5a58; /* Darken button background on hover */
+  box-shadow: 0 2px 10px 0 rgba(255, 255, 255, 0.2); /* Add a subtle shadow on hover */
+}
+
+/* About Us Section Styling */
+.about {
+  padding: 20px;
+  text-align: center;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.about-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.about-image {
+  width: 100%; /* Adjust width to be responsive */
+  max-width: 1400px; /* Ensure image does not exceed 1400px */
+  height: 400px; /* Set height to 400px */
+  object-fit: cover; /* Ensure the image covers the area without distortion */
+  border-radius: 8px;
+  margin-bottom: 20px; /* Space below the image */
+}
+
+/* Products Section Styling */
+.products {
+  padding: 20px;
+  text-align: center;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  justify-content: center;
+}
+
+.product-card {
+  width: calc(25% - 1em); /* Adjust as needed */
+  transition: transform 0.3s ease-in-out; /* Smooth transition for hover effect */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  box-sizing: border-box; /* Ensure padding doesn't affect the width */
+}
+
+.product-card:hover {
+  transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.product-image {
+  width: 300px; /* Set fixed width */
+  height: 300px; /* Set fixed height */
+  object-fit: cover; /* Ensure the image covers the area without distortion */
+  border-radius: 8px;
+  margin-bottom: 10px; /* Space below the image */
+}
+
+.product-card .MuiCardContent-root {
+  text-align: center;
+}
+
+.product-price {
+  color: #d9534f; /* Price color (red for discount) */
+  font-size: 1.5rem;
+  margin: 10px 0; /* Space above and below the price */
+}
+
+.product-discount {
+  color: #888; /* Color for the original price and discount */
+  font-size: 1rem;
+  margin-bottom: 10px; /* Space below the discount text */
+}
+
+.product-card .MuiCardContent-root {
+  text-align: center;
+}
+
+/* Star Ratings Styling */
+.ratings {
+  margin: 10px 0; /* Space above and below the ratings */
+}
+
+/* Footer Styling */
+.footer {
+  background: #2a2a2a;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  width: 100%;
+  bottom: 0;
+  transition: background 0.3s ease; /* Smooth transition for background */
+  box-sizing: border-box; /* Ensure padding doesn't affect the width */
+}
+
+.footer:hover {
+  background: #151515; /* Darken footer background on hover */
+}
