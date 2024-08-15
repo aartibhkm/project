@@ -1,0 +1,50 @@
+/* AboutUs.css */
+.about-us {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    color: #333;
+  }
+  
+  .banner {
+    position: relative;
+    width: 60%;
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center; /* Center the banner image horizontally */
+  }
+  
+  .banner-image {
+    width: 1400px;
+    height: 700px; /* Maintains aspect ratio */
+    object-fit: cover; /* Ensures the image covers the container */
+  }
+  
+  .about-us-content {
+    padding: 10px;
+  }
+  
+  .about-us-content h1, .about-us-content h2 {
+    color: #000;
+  }
+  
+  .about-us-content ul {
+    list-style-type: disc;
+    margin-left: 20px;
+  }
+  
+  .about-us-content p {
+    margin-bottom: 20px;
+  }
+  
+  @media (max-width: 900px) {
+    .banner-image {
+      height: 500px; /* Adjust image height on smaller screens */
+    }
+  }
+  
+  @media (max-width: 800px) {
+    .about-us-content h1 {
+      font-size: 3.5em; /* Adjust header size for small screens */
+    }
+  }

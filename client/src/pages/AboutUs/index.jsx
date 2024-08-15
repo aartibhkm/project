@@ -7,7 +7,7 @@ const Index = () => {
     <div className="about-us">
       <div className="banner">
         <img
-          src={"/images/banner/about/main-banner.jpg"}
+          src={"/images/banner/about/abut.jpg"}
           alt="Kailash Hardware and Sanitary Store"
           className="banner-image"
         />

@@ -34,9 +34,11 @@ export const AboutSection = () => {
           About Us
         </Typography>
         <Typography variant="subtitle2" textAlign={"start"}>
-          We are a leading provider of sanitary hardware, offering top-notch
-          products and solutions for both residential and commercial
-          applications.
+        At Kailash Hardware and Sanitary Products, we are more than just a
+              store; we are your trusted partner in all things hardware and
+              sanitary. Established with a vision to provide high-quality
+              products and exceptional service, we have been serving our valued
+              customers with dedication and integrity for 12 years.
         </Typography>
       </Box>
       <Box
@@ -229,19 +231,19 @@ const index = () => {
   const banners = [
     {
       img: {
-        src: "/images/banner/home/home_banner-1.png",
+        src: "/images/banner/home/product1.jpg",
         alt: "Banner 1",
       },
     },
     {
       img: {
-        src: "/images/banner/home/home_banner-2.png",
+        src: "/images/banner/home/product2.jpg",
         alt: "Banner 2",
       },
     },
     {
       img: {
-        src: "/images/banner/home/home_banner-3.png",
+        src: "/images/banner/home/product4.jpg",
         alt: "Banner 3",
       },
     },
