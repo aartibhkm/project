@@ -133,7 +133,7 @@ function Index() {
       name: "Contact",
       link: "/contact",
       subDescription: "Get in touch with us for inquiries and support.",
-    },
+    }
   ];
 
   const drawer = (
