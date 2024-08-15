@@ -20,7 +20,7 @@ const index = ({data}) => {
         centeredSlides={true}
         loop={true}
         autoplay={{
-          delay: 50000,
+          delay: 2500,
           disableOnInteraction: false,
         }}
         pagination={{

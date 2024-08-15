@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 import Banner from "../../components/Banner";
 import "../../styles/home.css";
@@ -8,6 +8,7 @@ import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined
 import HubOutlinedIcon from "@mui/icons-material/HubOutlined";
 import TipsAndUpdatesOutlinedIcon from "@mui/icons-material/TipsAndUpdatesOutlined";
 import ThumbUpOffAltOutlinedIcon from "@mui/icons-material/ThumbUpOffAltOutlined";
+import apiHelper from "../../utils/apiHelper";
 export const HeroSection = () => {
   return (
     <section className="hero">
@@ -34,11 +35,9 @@ export const AboutSection = () => {
           About Us
         </Typography>
         <Typography variant="subtitle2" textAlign={"start"}>
-        At Kailash Hardware and Sanitary Products, we are more than just a
-              store; we are your trusted partner in all things hardware and
-              sanitary. Established with a vision to provide high-quality
-              products and exceptional service, we have been serving our valued
-              customers with dedication and integrity for 12 years.
+          We are a leading provider of sanitary hardware, offering top-notch
+          products and solutions for both residential and commercial
+          applications.
         </Typography>
       </Box>
       <Box
@@ -76,11 +75,31 @@ export const AboutSection = () => {
   );
 };
 export const OurProducts = ({ data }) => {
-  const [selectedProductCategory, setSelectedProductCategory] = useState({
-    category: data.product[0].category,
-    products: data.product[0].products,
-  });
-  console.log(selectedProductCategory);
+  const [category, setCategory] = useState("Paint");
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const fetchProducts = async (_category) => {
+      setLoading(true);
+      try {
+        const response = await apiHelper(
+          "/product",
+          {
+            category: _category,
+          },
+          "GET"
+        );
+        const { data } = response;
+        setProducts(data.products);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts(category);
+  }, [category]);
+
   const { heading } = data;
   return (
     <section id="products" className="products">
@@ -98,69 +117,73 @@ export const OurProducts = ({ data }) => {
         </Button>
       </Box>
       <Box my={2}>
-
-      {data.product.map((category, index) => (
+        {["Paint", "Sanitary", "Hardware"].map((__category, index) => (
           <Button
             key={index}
             onClick={() => {
-              setSelectedProductCategory({
-                category: category.category,
-                products: category.products,
-              });
+              setCategory(__category);
             }}
             variant="contained"
-            color={selectedProductCategory.category === category.category ? 'primary' : 'inherit'}
+            color={__category === category ? "primary" : "inherit"}
             sx={{
               borderRadius: 20,
               margin: 0.5,
-              textTransform: 'capitalize',
+              textTransform: "capitalize",
               paddingX: 2,
               paddingY: 1,
-              fontWeight: 'bold',
-              fontSize: '0.875rem',
-              '&:hover': {
-                backgroundColor: 'primary.main',
-                color: 'white',
+              fontWeight: "bold",
+              fontSize: "0.875rem",
+              "&:hover": {
+                backgroundColor: "primary.main",
+                color: "white",
               },
             }}
           >
-            {category.category}
+            {__category}
           </Button>
         ))}
       </Box>
 
       <Box className="product-list" justifyContent={"flex-start"}>
-        {selectedProductCategory?.products?.map((product, index) => (
-          <Card className="product-card" key={index}>
-            <img
-              src={product.image}
-              alt={product.name}
-              className="product-image"
-            />
-            <CardContent>
-              <Typography variant="h6">{product.name}</Typography>
-              <Typography variant="body2">{product.description}</Typography>
-              <StarRatings
-                rating={product.rating} // Replace with dynamic rating if needed
-                starRatedColor="gold"
-                numberOfStars={5}
-                name="rating"
-                starDimension="20px"
-                starSpacing="5px"
+        {products?.slice(0,8)?.map((product, index) => {
+          const { name, description, imageUrl } = product;
+          return (
+            <Card className="product-card" key={index}>
+              <img
+                src={imageUrl[0]}
+                alt={"product.name"}
+                className="product-image"
               />
-              <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                ₹{product.price}
-              </Typography>
-              <button
-                onClick={() => {
-                  window.location.href = product.link;
-                }}
-              >
-                View Product
-              </button>
-            </CardContent>
-          </Card>
-        ))}
+              <CardContent>
+                <Typography variant="h6">
+                  {name.length > 20 ? name.substr(0, 20) + ".." : name}
+                </Typography>
+                <Typography variant="body2">
+                  {description.length > 80 ? description.substr(0, 80) + ".." : description}
+                </Typography>
+                <StarRatings
+                  rating={product.rating} // Replace with dynamic rating if needed
+                  starRatedColor="gold"
+                  numberOfStars={5}
+                  name="rating"
+                  starDimension="20px"
+                  starSpacing="5px"
+                />
+                <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                  ₹{product.price}
+                </Typography>
+                <button
+                  onClick={() => {
+                    const url = `product/${product.category}?id=${product._id}`;
+                    window.location.href = url;
+                  }}
+                >
+                  View Product
+                </button>
+              </CardContent>
+            </Card>
+          );
+        })}
         {/* Add more product cards as needed */}
       </Box>
     </section>
@@ -231,189 +254,31 @@ const index = () => {
   const banners = [
     {
       img: {
-        src: "/images/banner/home/product1.jpg",
+        src: "/images/banner/home/home_banner-4.png",
         alt: "Banner 1",
       },
     },
     {
       img: {
-        src: "/images/banner/home/product2.jpg",
+        src: "/images/banner/home/home_banner-5.png",
         alt: "Banner 2",
       },
     },
     {
       img: {
-        src: "/images/banner/home/product4.jpg",
+        src: "/images/banner/home/home_banner-6.png",
+        alt: "Banner 3",
+      },
+    },
+    {
+      img: {
+        src: "/images/banner/home/home_banner-7.png",
         alt: "Banner 3",
       },
     },
   ];
   const products = {
     heading: "Our Products",
-    product: [
-      {
-        category: "Sanitary",
-        link: "/category/1",
-        products: [
-          {
-            name: "Product 1",
-            description: "High-quality sanitary product for all your needs.",
-            image: "/images/products/product1.jpg",
-            rating: 3.5,
-            price: 100,
-            link: "/product/1",
-          },
-          {
-            name: "Product 2",
-            description: "Durable and reliable sanitary hardware solutions.",
-            image: "/images/products/product2.jpg",
-            rating: 3.5,
-            price: 100,
-            link: "/product/1",
-          },
-          {
-            name: "Product 1",
-            description: "High-quality sanitary product for all your needs.",
-            image: "/images/products/product1.jpg",
-            rating: 3.5,
-            price: 100,
-            link: "/product/1",
-          },
-          {
-            name: "Product 2",
-            description: "Durable and reliable sanitary hardware solutions.",
-            image: "/images/products/product2.jpg",
-            rating: 3.5,
-            price: 100,
-            link: "/product/1",
-          },
-          {
-            name: "Product 1",
-            description: "High-quality sanitary product for all your needs.",
-            image: "/images/products/product1.jpg",
-            rating: 3.5,
-            price: 100,
-            link: "/product/1",
-          },
-          {
-            name: "Product 2",
-            description: "Durable and reliable sanitary hardware solutions.",
-            image: "/images/products/product2.jpg",
-            rating: 3.5,
-            price: 100,
-            link: "/product/1",
-          },
-        ],
-      },
-      {
-        category: "Hardware",
-        link: "/category/2",
-        products: [
-          {
-            name: "Product 1",
-            description: "High-quality hardware product for all your needs.",
-            image: "/images/products/product1.jpg",
-            rating: 3.5,
-            price: 100,
-            link: "/product/1",
-          },
-          {
-            name: "Product 2",
-            description: "Durable and reliable hardware solutions.",
-            image: "/images/products/product2.jpg",
-            rating: 3.5,
-            price: 100,
-            link: "/product/1",
-          },
-          {
-            name: "Product 1",
-            description: "High-quality hardware product for all your needs.",
-            image: "/images/products/product1.jpg",
-            rating: 3.5,
-            price: 100,
-            link: "/product/1",
-          },
-          {
-            name: "Product 2",
-            description: "Durable and reliable hardware solutions.",
-            image: "/images/products/product2.jpg",
-            rating: 3.5,
-            price: 100,
-            link: "/product/1",
-          },
-          {
-            name: "Product 1",
-            description: "High-quality hardware product for all your needs.",
-            image: "/images/products/product1.jpg",
-            rating: 3.5,
-            price: 100,
-            link: "/product/1",
-          },
-          {
-            name: "Product 2",
-            description: "Durable and reliable hardware solutions.",
-            image: "/images/products/product2.jpg",
-            rating: 3.5,
-            price: 100,
-            link: "/product/1",
-          },
-        ],
-      },
-      {
-        category: "Paints",
-        link: "/category/3",
-        products: [
-          {
-            name: "Product 1",
-            description: "High-quality paint product for all your needs.",
-            image: "/images/products/product1.jpg",
-            rating: 3.5,
-            price: 100,
-            link: "/product/1",
-          },
-          {
-            name: "Product 2",
-            description: "Durable and reliable paint solutions.",
-            image: "/images/products/product2.jpg",
-            rating: 3.5,
-            price: 100,
-            link: "/product/1",
-          },
-          {
-            name: "Product 1",
-            description: "High-quality paint product for all your needs.",
-            image: "/images/products/product1.jpg",
-            rating: 3.5,
-            price: 100,
-            link: "/product/1",
-          },
-          {
-            name: "Product 2",
-            description: "Durable and reliable paint solutions.",
-            image: "/images/products/product2.jpg",
-            rating: 3.5,
-            price: 100,
-            link: "/product/1",
-          },
-          {
-            name: "Product 1",
-            description: "High-quality paint product for all your needs.",
-            image: "/images/products/product1.jpg",
-            rating: 3.5,
-            price: 100,
-            link: "/product/1",
-          },
-          {
-            name: "Product 2",
-            description: "Durable and reliable paint solutions.",
-            image: "/images/products/product2.jpg",
-            rating: 3.5,
-            price: 100,
-            link: "/product/1",
-          },
-        ],
-      },
-    ],
   };
   return (
     <div className="__home">

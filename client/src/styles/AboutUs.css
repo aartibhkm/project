@@ -1,35 +1,36 @@
 /* AboutUs.css */
 .about-us {
     font-family: Arial, sans-serif;
-    padding: 20px;
     color: #333;
   }
   
-  .banner {
-    position: relative;
-    width: 60%;
-    max-width: 1000px;
+  .about-us > .banner {
+    /* position: relative; */
+    background-color: transparent;
+    width: 100%;
+    max-width: 1400px;
     margin: 0 auto;
-    display: flex;
-    justify-content: center; /* Center the banner image horizontally */
   }
   
   .banner-image {
-    width: 1400px;
-    height: 700px; /* Maintains aspect ratio */
-    object-fit: cover; /* Ensures the image covers the container */
+    width: 50%;
+    height: auto;
+    object-fit: cover;
   }
   
   .about-us-content {
-    padding: 10px;
+    padding: 20px;
   }
   
-  .about-us-content h1, .about-us-content h2 {
+  .about-us-content h1,
+  .about-us-content h2 {
     color: #000;
+    font-weight: bold;
   }
   
   .about-us-content ul {
-    list-style-type: disc;
+    /* list-style-type: disc; */
+    list-style: none;
     margin-left: 20px;
   }
   
@@ -37,14 +38,48 @@
     margin-bottom: 20px;
   }
   
-  @media (max-width: 900px) {
-    .banner-image {
-      height: 500px; /* Adjust image height on smaller screens */
+  .social-media {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .social-media a {
+    color: #333;
+    font-size: 24px;
+    text-decoration: none;
+  }
+  
+  .social-media a:hover {
+    color: #007bff; /* Adjust hover color as needed */
+  }
+  
+  /* Adjustments for smaller screens */
+  @media (max-width: 480px) {
+    .banner {
+      /* position: relative; */
+      width: 100%;
+      margin: 0 auto;
     }
+    
+    .banner-image {
+      width: 50%;
+      height: auto;
+      object-fit: cover;
+    }
+    
   }
   
   @media (max-width: 800px) {
     .about-us-content h1 {
-      font-size: 3.5em; /* Adjust header size for small screens */
+      font-size: 3.5em;
+    }
+  
+    .about-us-content h2 {
+      font-size: 2.5em;
+    }
+  
+    .about-us-content ul {
+      margin-left: 10px;
     }
   }

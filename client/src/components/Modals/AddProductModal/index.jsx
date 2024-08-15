@@ -102,7 +102,6 @@ const AddProductModal = ({ open, handleClose, onAdd }) => {
                       <MenuItem value="Paint">Paint</MenuItem>
                       <MenuItem value="Sanitary">Sanitary</MenuItem>
                       <MenuItem value="Hardware">Hardware</MenuItem>
-                      <MenuItem value="Installation_services">Installation_services</MenuItem>
                     </Field>
                     <ErrorMessage name="category" component="div" style={{ color: 'red' }} />
                   </FormControl>

@@ -131,12 +131,12 @@ export default function Sidebar() {
           src={session?.user?.image || "/image/userProfile/defaultUser.png"}
           sx={{ width: 100, height: 100 }}
         />
-        {/* {expand && (
+        {expand && (
           <Box textAlign="center" mt={2}>
             <Typography variant="body2">Welcome back 👋</Typography>
             <Typography variant="h6">{session?.user?.name || "jaspreet singh"}</Typography>
           </Box>
-        )} */}
+        )}
       </SidebarHeader>
 
       <List>
